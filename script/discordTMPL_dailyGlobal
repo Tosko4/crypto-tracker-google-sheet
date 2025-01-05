@@ -1,6 +1,10 @@
 function discordTMPL_dailyGlobal(dl) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
 
+  // Fetch the display currency from the Settings sheet
+  var settingsSheet = ss.getSheetByName("Settings");
+  var displayCurrency = settingsSheet.getRange("A2").getValue();
+
   var dl = dl[0];
   var datalayer = {
     "date": dl[0],
@@ -14,7 +18,7 @@ function discordTMPL_dailyGlobal(dl) {
     "kpi_top500_30d_change": (dl[7] * 100).toFixed(2) || "",
     "kpi_net_worth": dl[6].toFixed(2) || "",
     "kpi_deposit": dl[5].toFixed(2) || "",
-    "display_currency": "CAD" || "",
+    "display_currency": displayCurrency || "CAD", // Fallback to CAD if A2 is empty
     "kpi_roi": dl[3].toFixed(2) || "",
     "kpi_roi_change": (dl[4] * 100).toFixed(2) || "",
   };
